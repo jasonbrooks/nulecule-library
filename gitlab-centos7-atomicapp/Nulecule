@@ -11,8 +11,17 @@ params:
       description: The specified default provider.
       default: kubernetes
 graph:
-  - name: redis-centos7-atomicapp
-    source: docker://projectatomic/redis-centos7-atomicapp
+  - name: redis
+    params:
+      - name: image
+        description: Redis image to be used.
+        default: swordphilic/redis:latest
+    artifacts:
+      kubernetes:
+        - file://artifacts/kubernetes/redis-rc.json
+        - file://artifacts/kubernetes/redis-service.json
+      docker:
+        - file://artifacts/docker/redis-container-run
   - name: postgresql
     params:
       - name: image
